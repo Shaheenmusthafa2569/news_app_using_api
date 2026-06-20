@@ -1,0 +1,48 @@
+import 'package:flutter/material.dart';
+import 'package:news_app_using_api/view/home_screen.dart';
+
+class MyNewsSplash extends StatefulWidget {
+  const MyNewsSplash({super.key});
+
+  @override
+  State<MyNewsSplash> createState() => _MyNewsSplashState();
+}
+
+class _MyNewsSplashState extends State<MyNewsSplash> {
+  @override
+  void initState() {
+    super.initState();
+    Future.delayed(Duration(seconds: 5), () {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => MynewsHomepage()),
+      );
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      // backgroundColor: NewsColors.bgLight,
+      body: Center(
+        child: Column(
+          mainAxisAlignment: .center,
+          children: [
+            Icon(
+              Icons.newspaper_outlined,
+              // color: NewsColors.accentOrange,
+              size: 55,
+            ),
+            SizedBox(height: 10),
+            Text(
+              "DailyArticles",
+              // style: TextStyle(fontSize: 30, color: NewsColors.textPrimary),
+            ),
+            SizedBox(height: 10),
+            CircularProgressIndicator(),
+          ],
+        ),
+      ),
+    );
+  }
+}
