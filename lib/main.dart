@@ -1,9 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:news_app_using_api/providers/news_provider.dart';
 import 'package:news_app_using_api/theme/app_colors.dart';
 import 'package:news_app_using_api/view/splash_screen.dart';
+import 'package:provider/provider.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+    ChangeNotifierProvider(
+      create: (context) => NewsProvider(),
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
