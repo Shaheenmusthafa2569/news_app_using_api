@@ -79,7 +79,7 @@ class _MynewsHomepageState extends State<MynewsHomepage> {
                   title: article.title,
                   description: article.description,
                   source: article.name,
-                  publishedAt: article.publishedAt,
+                  publishedAt: article.timeAgo,
                 ),
               );
             },

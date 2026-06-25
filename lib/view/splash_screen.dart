@@ -28,10 +28,9 @@ class _MyNewsSplashState extends State<MyNewsSplash> {
         child: Column(
           mainAxisAlignment: .center,
           children: [
-            Icon(
-              Icons.newspaper_outlined,
-              // color: NewsColors.accentOrange,
-              size: 55,
+            Image.asset(
+             "assets/newspaper.png"
+              ,fit: BoxFit.contain,
             ),
             SizedBox(height: 10),
             Text(
@@ -43,7 +42,7 @@ class _MyNewsSplashState extends State<MyNewsSplash> {
               padding: const EdgeInsets.symmetric(horizontal: 150),
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(12),
-           child: LinearProgressIndicator(),
+                child: LinearProgressIndicator(),
               ),
             ),
           ],
