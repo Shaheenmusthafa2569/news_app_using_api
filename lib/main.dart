@@ -20,7 +20,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: NewsTheme.dark,
+      theme: NewsTheme.light,
+      darkTheme: NewsTheme.dark,
+      themeMode: ThemeMode.system,
       debugShowCheckedModeBanner: false,
       home: MyNewsSplash(),
     );

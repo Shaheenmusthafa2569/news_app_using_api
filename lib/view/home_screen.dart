@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:news_app_using_api/providers/news_provider.dart';
 import 'package:news_app_using_api/theme/app_colors.dart';
+import 'package:news_app_using_api/widgets/alertbox.dart';
 import 'package:provider/provider.dart';
 
 class MynewsHomepage extends StatefulWidget {
@@ -26,7 +27,16 @@ class _MynewsHomepageState extends State<MynewsHomepage> {
         title: Text("DailyArticles"),
         centerTitle: true,
         actions: [
-          IconButton(onPressed: () {}, icon: Icon(Icons.search)),
+          IconButton(
+            icon: const Icon(Icons.search),
+            onPressed: () async {
+              final query = await showNewsSearchDialog(context);
+
+              if (query != null) {
+                context.read<NewsProvider>().searchNews(query);
+              }
+            },
+          ),
           SizedBox(width: 8),
         ],
       ),
@@ -35,42 +45,24 @@ class _MynewsHomepageState extends State<MynewsHomepage> {
           if (provider.isLoading) {
             return const Center(child: CircularProgressIndicator());
           }
-
-          return GridView.builder(
+          return ListView.builder(
             itemCount: provider.newslist.length,
-
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
-              childAspectRatio: 0.7,
-            ),
-
             itemBuilder: (context, index) {
               final article = provider.newslist[index];
-
-              return NewsArticleCard(
-                title: article.title,
-                description: article.description,
-                source: article.name,
-                publishedAt: article.publishedAt,
+              return Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: NewsArticleCard(
+                  imageUrl: article.urlToImage,
+                  title: article.title,
+                  description: article.description,
+                  source: article.name,
+                  publishedAt: article.publishedAt,
+                ),
               );
             },
           );
         },
       ),
-      //  GridView.builder(
-      //   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-      //     crossAxisCount: 5,
-      //     mainAxisExtent: 5,
-      //   ),
-      //   itemBuilder: (context, index) {
-      //     return NewsArticleCard(
-      //       title: api.,
-      //       description: description,
-      //       source: source,
-      //       publishedAt: publishedAt,
-      //     );
-      //   },
-      // ),
     );
   }
 }

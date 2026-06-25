@@ -34,10 +34,7 @@ class _MyNewsSplashState extends State<MyNewsSplash> {
               size: 55,
             ),
             SizedBox(height: 10),
-            Text(
-              "DailyArticles",
-              // style: TextStyle(fontSize: 30, color: NewsColors.textPrimary),
-            ),
+            Text("DailyArticles", style: Theme.of(context).textTheme.headlineLarge),
             SizedBox(height: 10),
             CircularProgressIndicator(),
           ],
