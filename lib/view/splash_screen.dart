@@ -34,9 +34,18 @@ class _MyNewsSplashState extends State<MyNewsSplash> {
               size: 55,
             ),
             SizedBox(height: 10),
-            Text("DailyArticles", style: Theme.of(context).textTheme.headlineLarge),
+            Text(
+              "DailyArticles",
+              style: Theme.of(context).textTheme.headlineLarge,
+            ),
             SizedBox(height: 10),
-            CircularProgressIndicator(),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 150),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(12),
+           child: LinearProgressIndicator(),
+              ),
+            ),
           ],
         ),
       ),

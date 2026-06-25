@@ -6,32 +6,40 @@ class NewsProvider extends ChangeNotifier {
   final ApiService apiService = ApiService();
   List<NewsModel> newslist = [];
   bool isLoading = false;
-  List<NewsModel> filteredNews = [];
   String error = '';
+
+  // Fetch top headlines
   Future<void> fetchNews() async {
     try {
       isLoading = true;
-      notifyListeners();
-      newslist = (await apiService.getArticles());
-      filteredNews = newslist;
       error = '';
+      notifyListeners();
+      
+      newslist = await apiService.getArticles();
     } catch (e) {
       error = e.toString();
+    } finally {
+      isLoading = false;
+      notifyListeners();
     }
-    isLoading = false;
-
-    notifyListeners();
   }
 
-  void searchNews(String query) {
-    if (query.isEmpty) {
-      filteredNews = newslist;
-    } else {
-      filteredNews = newslist.where((article) {
-        return article.title.toLowerCase().contains(query.toLowerCase());
-      }).toList();
+  // Fetch search results from API
+  Future<void> fetchSearchNews(String query) async {
+    if (query.isEmpty) return;
+    
+    try {
+      isLoading = true;
+      error = '';
+      notifyListeners();
+      
+      // Update the main list with live search engine results
+      newslist = await apiService.searchArticles(query);
+    } catch (e) {
+      error = e.toString();
+    } finally {
+      isLoading = false;
+      notifyListeners();
     }
-
-    notifyListeners();
   }
 }

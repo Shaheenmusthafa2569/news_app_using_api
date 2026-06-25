@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:news_app_using_api/providers/news_provider.dart';
 import 'package:news_app_using_api/theme/app_colors.dart';
+import 'package:news_app_using_api/view/details_screen.dart';
 import 'package:news_app_using_api/widgets/alertbox.dart';
 import 'package:provider/provider.dart';
 
@@ -32,8 +33,8 @@ class _MynewsHomepageState extends State<MynewsHomepage> {
             onPressed: () async {
               final query = await showNewsSearchDialog(context);
 
-              if (query != null) {
-                context.read<NewsProvider>().searchNews(query);
+              if (query != null && query.isNotEmpty) {
+                context.read<NewsProvider>().fetchSearchNews(query);
               }
             },
           ),
@@ -45,6 +46,19 @@ class _MynewsHomepageState extends State<MynewsHomepage> {
           if (provider.isLoading) {
             return const Center(child: CircularProgressIndicator());
           }
+          if (provider.error.isNotEmpty) {
+            return Center(
+              child: Text(
+                "Error: ${provider.error}",
+                style: const TextStyle(color: Colors.red),
+              ),
+            );
+          }
+          if (provider.newslist.isEmpty) {
+            return const Center(
+              child: Text("No articles found for this topic."),
+            );
+          }
           return ListView.builder(
             itemCount: provider.newslist.length,
             itemBuilder: (context, index) {
@@ -52,6 +66,15 @@ class _MynewsHomepageState extends State<MynewsHomepage> {
               return Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: NewsArticleCard(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) =>
+                            MyNewsDetailPage(article: article),
+                      ),
+                    );
+                  },
                   imageUrl: article.urlToImage,
                   title: article.title,
                   description: article.description,

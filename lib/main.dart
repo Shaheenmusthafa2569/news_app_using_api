@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       theme: NewsTheme.light,
       darkTheme: NewsTheme.dark,
-      themeMode: ThemeMode.system,
+      themeMode: ThemeMode.light,
       debugShowCheckedModeBanner: false,
       home: MyNewsSplash(),
     );
